@@ -1,0 +1,147 @@
+**** FRIEND CLASS ****
+
+class base
+{
+    private:
+        int private_var;
+    protected:
+        int protected_var;
+    public:
+        int public_var;
+        
+        base(int private_var, int protected_var, int public_var)
+        {
+            this->private_var = private_var;
+            this->protected_var = protected_var;
+            this->public_var = public_var;
+        }
+        
+        friend class child;
+};
+
+class child
+{
+    public:
+        void display(base & b)
+        {
+            cout <<"Private var = " << b.private_var << endl;
+            cout <<"Protected var = " << b.protected_var << endl;
+            cout <<"Public var = " << b.public_var << endl;
+        }
+};
+
+int main()
+{
+    base b1(10,20,30);
+    child c1;
+    
+    c1.display(b1);
+    
+    return 0;
+}
+
+OUTPUT:
+======
+Private var = 10
+Protected var = 20
+Public var = 30
+
+**** END ****
+
+**** FRIEND GLOBAL MEMBER FUNCTION ****
+
+class base
+{
+    private:
+        int private_var;
+    protected:
+        int protected_var;
+    public:
+        int public_var;
+        
+        base(int private_var, int protected_var, int public_var)
+        {
+            this->private_var = private_var;
+            this->protected_var = protected_var;
+            this->public_var = public_var;
+        }
+        
+        friend void friend_display(base & b);
+};
+
+void friend_display (base & b)
+{
+    cout <<"Private var = " << b.private_var << endl;
+    cout <<"Protected var = " << b.protected_var << endl;
+    cout <<"Public var = " << b.public_var << endl;
+}
+
+int main()
+{
+    base b1(10,20,30);
+    friend_display(b1);
+        
+    return 0;
+}
+
+OUTPUT:
+======
+Private var = 10
+Protected var = 20
+Public var = 30
+
+**** END ****
+
+**** Member Function of Another Class as Friend Function ****
+
+class base;
+
+class child
+{
+    public:
+        void friend_display(base & b);
+        
+};
+
+class base
+{
+    private:
+        int private_var;
+    protected:
+        int protected_var;
+    public:
+        int public_var;
+        
+        base(int private_var, int protected_var, int public_var)
+        {
+            this->private_var = private_var;
+            this->protected_var = protected_var;
+            this->public_var = public_var;
+        }
+        
+        friend void child::friend_display(base & b);
+};
+
+void child::friend_display (base & b)
+{
+    cout <<"Private var = " << b.private_var << endl;
+    cout <<"Protected var = " << b.protected_var << endl;
+    cout <<"Public var = " << b.public_var << endl;
+}
+
+int main()
+{
+    base b1(10,20,30);
+    child c1;
+    c1.friend_display(b1);
+    
+    return 0;
+}
+
+OUTPUT:
+======
+Private var = 10
+Protected var = 20
+Public var = 30
+
+**** END ****
