@@ -1,0 +1,761 @@
+OOP CONCEPT
+===========
+1. Abstraction
+2. Encapsulation
+3. Inheritance
+4. Polymorphism
+
+
+
+**** Class / Object ****
+
+class Employee
+{
+    public:
+        string name;
+        string company;
+        int age;
+    
+        void input()
+        {
+            cout << "Enter the name : ";
+            cin >> name;
+            cout << "Enter the company name : "; 
+            cin >> company;
+            cout << "Enter the age : ";
+            cin >> age;
+        }
+        void output()
+        {
+            cout << "Name : " << name << endl;
+            cout << "Company : " << company << endl;
+            cout << "Age : " << age << endl;
+        }
+};
+
+int main()
+{
+    Employee emp1, emp2;
+    emp1.input();
+    emp1.output();
+    
+    emp2.input();
+    emp2.output();
+    
+    return 0;
+}
+
+OUTPUT:
+=======
+Enter the name : Mohan
+Enter the company name : HCL
+Enter the age : 30
+Name : Mohan
+Company : HCL
+Age : 30
+Enter the name : Gopal
+Enter the company name : CISCO
+Enter the age : 31
+Name : Gopal
+Company : CISCO
+Age : 31
+
+**** END ****
+
+**** ACCESS SPECIFIERS ****
+
+1. Only public variables can be accessed outside class
+
+class InheritanceCheck
+{
+    private:
+        int pri_var=1;
+    protected:
+        int pro_var=2;
+    public:
+        int pub_var=3;
+};
+
+int main()
+{
+    InheritanceCheck inherit;
+    
+    cout << "Public : " << inherit.pub_var << endl;
+//    cout << "Protected " << protected_var << endl;
+//    cout << "Private : " << private_var << endl;
+}
+
+
+2. Private variable can be accessed in main() with the help of class members
+
+class InheritanceCheckBase
+{
+    private:
+        int pri_var=1;
+    protected:
+        int pro_var=2;
+    public:
+        int pub_var=3;
+        
+        int get_pro_val()
+        {
+            return pro_var;
+        }
+        int get_pri_val()
+        {
+            return pri_var;
+        }
+};
+
+int main()
+{
+    InheritanceCheckBase inheritBase;
+    
+    cout << "Public : " << inheritBase.pub_var << endl;
+    cout << "Protected " << inheritBase.get_pro_val() << endl;
+    cout << "Private : " << inheritBase.get_pri_val() << endl;
+    
+    return 0;
+}
+
+3. Protected can be accessed in derived class
+
+class InheritanceCheckBase
+{
+    private:
+        int pri_var=1;
+    protected:
+        int pro_var=2;
+    public:
+        int pub_var=3;
+        
+        int get_pro_val()
+        {
+            return pro_var;
+        }
+        int get_pri_val()
+        {
+            return pri_var;
+        }
+};
+
+class InheritanceCheckChild : public InheritanceCheckBase
+{
+    public:
+        void show()
+        {
+            cout << "Public : " << pub_var << endl;
+            cout << "Protected " << pro_var << endl;
+//            cout << "Private : " << pri_var << endl;
+        }
+};
+
+int main()
+{
+    InheritanceCheckChild inheritChild;
+    
+    inheritChild.show();
+
+    return 0;
+}
+
+**** END ****
+
+**** Constructor **** 
+
+Tump Rule
+=========
+1. Constructor name and class name should be same
+2. Constructor should have no return value
+3. Constructor should be inside 'public' specifier
+
+
+1. Using constructor to take input from user (no input argument)
+
+#include <iostream>
+using namespace std;
+
+class Employee
+{
+    public:
+        string name;
+        string company;
+        int age;
+    
+        void input()
+        {
+            cout << "Enter the name : ";
+            cin >> name;
+            cout << "Enter the name : "; 
+            cin >> company;
+            cout << "Enter the company name : ";
+            cin >> age;
+        }
+        void output()
+        {
+            cout << "Name : " << name << endl;
+            cout << "Company : " << company << endl;
+            cout << "Age : " << age << endl;
+        }
+        Employee() 
+        {
+            cout << "Enter the name : ";
+            cin >> name;
+            cout << "Enter the compant name : "; 
+            cin >> company;
+            cout << "Enter the age : ";
+            cin >> age;
+        }
+};
+
+int main()
+{
+    Employee emp1, emp2;
+//    emp1.input();
+    emp1.output();
+    
+//    emp2.input();
+    emp2.output();
+    
+    return 0;
+}
+
+
+2. Constructor to store input values (with input argument)
+
+#include <iostream>
+using namespace std;
+
+class Employee
+{
+    public:
+        string name;
+        string company;
+        int age;
+    
+        void input()
+        {
+            cout << "Enter the name : ";
+            cin >> name;
+            cout << "Enter the name : "; 
+            cin >> company;
+            cout << "Enter the company name : ";
+            cin >> age;
+        }
+        void output()
+        {
+            cout << "Name : " << name << endl;
+            cout << "Company : " << company << endl;
+            cout << "Age : " << age << endl;
+        }
+
+        Employee (string name, string company, int age)
+        {
+            this->name = name;
+            this->company = company;
+            this->age = age;
+        }
+};
+int main()
+{
+    Employee emp1("Mohan", "HCL", 30), emp2 ("Gopal", "CISCO", 31);
+//    emp1.input();
+    emp1.output();
+    
+//    emp2.input();
+    emp2.output();
+    
+    
+
+    return 0;
+}
+
+**** END ****
+
+
+
+**** ENCAPSULATION ****
+
+Private variable in a class can be accessed outside class using methods 
+
+#include <iostream>
+using namespace std;
+
+class Employee
+{
+    private:
+        string name;
+        string company;
+        int age;
+    
+    public:
+        void setName(string name)
+        {
+            this->name = name;
+        }
+        
+        void getName()
+        {
+            cout <<"Name = " <<name << endl; 
+        }
+        
+        void setCompany(string company)
+        {
+            this->company = company;
+        }
+        
+        void getCompany()
+        {
+            cout <<"Company = " <<company << endl; 
+        }
+        
+        void setAge(int age)
+        {
+            this->age = age;
+        }
+        
+        void getAge()
+        {
+            cout <<"Age = " <<age << endl; 
+        }
+        
+        Employee (string name, string company, int age)
+        {
+            this->name = name;
+            this->company = company;
+            this->age = age;
+        }
+};
+int main()
+{
+    Employee emp1("Mohan", "HCL", 30), emp2("Gopal", "CISCO", 34);
+    emp1.getName();
+    emp1.getCompany();
+    emp1.getAge();
+    
+    emp2.getName();
+    emp2.getCompany();
+    emp2.getAge();
+    
+    emp1.setAge(35);
+    emp1.getName();
+    emp1.getCompany();
+    emp1.getAge();
+    
+    emp2.setCompany("WIPRO");
+    emp2.getName();
+    emp2.getCompany();
+    emp2.getAge();
+    
+    return 0;
+}
+
+**** END ****
+
+
+**** ABSTRACTION ****
+
+
+class AbstractClass
+{
+    virtual void performaceBonus()=0;  
+};
+class Employee : AbstractClass
+{
+    public:
+        string name;
+        string company;
+        int age;
+    
+        void input()
+        {
+            cout << "Enter the name : ";
+            cin >> name;
+            cout << "Enter the name : "; 
+            cin >> company;
+            cout << "Enter the company name : ";
+            cin >> age;
+        }
+        void output()
+        {
+            cout << "Name : " << name << endl;
+            cout << "Company : " << company << endl;
+            cout << "Age : " << age << endl;
+        }
+
+        Employee (string name, string company, int age)
+        {
+            this->name = name;
+            this->company = company;
+            this->age = age;
+        }
+        
+        void performaceBonus()
+        {
+            cout << "Inside Employee class\n" << endl;
+            if (age <=30)
+                cout << "Employee age is " << age << " performaceBonus Initiated" << endl;
+            else
+                cout << "Employee age is " << age << " performaceBonus not Initiated" << endl;
+        }
+};
+
+int main()
+{
+    Employee emp1("Mohan", "HCL", 30), emp2 ("Gopal", "CISCO", 31);
+    emp1.output();
+    emp2.output();
+    
+    emp1.performaceBonus();
+    emp2.performaceBonus();
+    
+    return 0;
+}
+
+
+OUTPUT:
+Name : Mohan
+Company : HCL
+Age : 30
+Name : Gopal
+Company : CISCO
+Age : 31
+Inside Employee class
+
+Employee age is 30 performaceBonus Initiated
+Inside Employee class
+
+Employee age is 31 performaceBonus not Initiated
+
+**** END ****
+
+**** INHERITANCE ****
+
+1. Inheritance without using constructor
+
+#include <iostream>
+using namespace std;
+
+class AbstractClass
+{
+    virtual void performaceBonus()=0;  
+};
+class Employee : AbstractClass
+{
+    public:
+        string name;
+        string company;
+        int age;
+    
+        void input()
+        {
+            cout << "Enter the name : ";
+            cin >> name;
+            cout << "Enter the Company name : "; 
+            cin >> company;
+            cout << "Enter the age : ";
+            cin >> age;
+        }
+        void output()
+        {
+            cout << "Name : " << name << endl;
+            cout << "Company : " << company << endl;
+            cout << "Age : " << age << endl;
+        }
+       
+        void performaceBonus()
+        {
+            if (age <=30)
+                cout << "Employee age is " << age << " performace Bonus Initiated" << endl;
+            else
+                cout << "Employee age is " << age << " performace Bonus not Initiated" << endl;
+        }
+};
+
+class Developer : public Employee
+{
+    private:
+        string programLanguage;
+    public:
+        void devInput(string lang)
+        {
+            programLanguage = lang;
+        }
+        void devOuput()
+        {
+            cout << name << " is using " << programLanguage << " language for fixing bugs" << endl;
+        }
+    
+};
+
+class Tester : public Employee
+{
+    private:
+        string testingSkill;
+    public:
+        void testInput(string skill)
+        {
+            testingSkill = skill;
+        }
+        void testOuput()
+        {
+            cout << name << " is using " << testingSkill << " Skill for testing bugs" << endl;
+        }
+    
+};
+
+int main()
+{
+    Developer d;
+    d.input();
+    d.devInput("C++");
+    d.output();
+    d.devOuput();
+    d.performaceBonus();
+    
+    Tester t;
+    t.input();
+    t.testInput("Python Automation");
+    t.output();
+    t.testOuput();
+    t.performaceBonus();
+    
+    return 0;
+}
+
+OUTPUT:
+Enter the name : Mohan
+Enter the Company name : HCL
+Enter the age : 30
+Name : Mohan
+Company : HCL
+Age : 30
+Mohan is using C++ language for fixing bugs
+Employee age is 30 performace Bonus Initiated
+Enter the name : Gopal
+Enter the Company name : CISCO
+Enter the age : 31
+Name : Gopal
+Company : CISCO
+Age : 31
+Gopal is using Python Automation Skill for testing bugs
+Employee age is 31 performace Bonus not Initiated
+
+
+2. Inheritance with using constructor
+
+#include <iostream>
+using namespace std;
+
+class AbstractClass
+{
+    virtual void performaceBonus()=0;  
+};
+class Employee : AbstractClass
+{
+    public:
+        string name;
+        string company;
+        int age;
+    
+        void output()
+        {
+            cout << "Name : " << name << endl;
+            cout << "Company : " << company << endl;
+            cout << "Age : " << age << endl;
+        }
+
+        Employee (string name, string company, int age)
+        {
+            this->name = name;
+            this->company = company;
+            this->age = age;
+        }
+        
+        void performaceBonus()
+        {
+            if (age <=30)
+                cout << "Employee age is " << age << " performace Bonus Initiated" << endl;
+            else
+                cout << "Employee age is " << age << " performace Bonus not Initiated" << endl;
+        }
+};
+
+class Developer : public Employee
+{
+    private:
+        string programLanguage;
+    public:
+        Developer(string name, string company, int age, string progLang) : Employee(name, company, age)
+        {
+            programLanguage = progLang;
+        }
+        void devOuput()
+        {
+            cout << name << " is using " << programLanguage << " language for fixing bugs" << endl;
+        }
+    
+};
+
+class Tester : public Employee
+{
+    private:
+        string testingSkill;
+    public:
+        Tester(string name, string company, int age, string skill) : Employee(name, company, age)
+        {
+            testingSkill = skill;
+        }
+        void testOuput()
+        {
+            cout << name << " is using " << testingSkill << " Skill for testing bugs" << endl;
+        }
+    
+};
+
+int main()
+{
+    Developer d("Mohan", "HCL", 25, "C++");
+    d.output();
+    d.devOuput();
+    d.performaceBonus();
+    
+    Tester t("Gopal", "CISCO", 31, "Python Automation");
+    t.output();
+    t.testOuput();
+    t.performaceBonus();
+    
+    return 0;
+}
+
+
+OUTPUT:
+Name : Mohan
+Company : HCL
+Age : 25
+Mohan is using C++ language for fixing bugs
+Employee age is 25 performace Bonus Initiated
+Name : Gopal
+Company : CISCO
+Age : 31
+Gopal is using Python Automation Skill for testing bugs
+Employee age is 31 performace Bonus not Initiated
+
+**** END ****
+
+
+**** POLYMORPHISM ****
+
+class AbstractClass
+{
+    virtual void performaceBonus()=0;  
+};
+class Employee : AbstractClass
+{
+    public:
+        string name;
+        string company;
+        int age;
+    
+        void output()
+        {
+            cout << "Name : " << name << endl;
+            cout << "Company : " << company << endl;
+            cout << "Age : " << age << endl;
+        }
+
+        Employee (string name, string company, int age)
+        {
+            this->name = name;
+            this->company = company;
+            this->age = age;
+        }
+        
+        void performaceBonus()
+        {
+            if (age <=30)
+                cout << "Employee age is " << age << " performace Bonus Initiated" << endl;
+            else
+                cout << "Employee age is " << age << " performace Bonus not Initiated" << endl;
+        }
+        
+        virtual void work()
+        {
+            cout << name <<" is a employee" << endl;
+        }
+};
+
+class Developer : public Employee
+{
+    private:
+        string programLanguage;
+    public:
+        Developer(string name, string company, int age, string progLang) : Employee(name, company, age)
+        {
+            programLanguage = progLang;
+        }
+        void devOuput()
+        {
+            cout << name << " is using " << programLanguage << " language for fixing bugs" << endl;
+        }
+        void work()
+        {
+            cout << name <<" is a developer" << endl;
+        }
+    
+};
+
+class Tester : public Employee
+{
+    private:
+        string testingSkill;
+    public:
+        Tester(string name, string company, int age, string skill) : Employee(name, company, age)
+        {
+            testingSkill = skill;
+        }
+        void testOuput()
+        {
+            cout << name << " is using " << testingSkill << " Skill for testing bugs" << endl;
+        }
+        void work()
+        {
+            cout << name <<" is a tester" << endl;
+        }
+    
+};
+
+int main()
+{
+    Developer d("Mohan", "HCL", 25, "C++");
+    Employee *e1 = &d;
+    d.output();
+    d.devOuput();
+    d.performaceBonus();
+    e1->work();
+    
+    Tester t("Gopal", "CISCO", 31, "Python Automation");
+    Employee *e2 = &t;
+    t.output();
+    t.testOuput();
+    t.performaceBonus();
+    e2->work();
+   
+    return 0;
+}
+
+OUTPUT:
+Name : Mohan
+Company : HCL
+Age : 25
+Mohan is using C++ language for fixing bugs
+Employee age is 25 performace Bonus Initiated
+Mohan is a developer
+Name : Gopal
+Company : CISCO
+Age : 31
+Gopal is using Python Automation Skill for testing bugs
+Employee age is 31 performace Bonus not Initiated
+Gopal is a tester
+
+**** END **** 
