@@ -1,0 +1,208 @@
+**** Constructor/Destructor (Default Constructor) ****
+
+class student
+{
+    private:
+        string name;
+    public:
+        student()
+        {
+            cout <<"Constructor is called " << endl;
+        }
+        ~student()
+        {
+            cout <<"Destructor is called " << endl;
+        }
+    
+};
+int main()
+{
+    student s;
+
+    return 0;
+}
+
+OUTPUT:
+Constructor is called 
+Destructor is called 
+
+**** END ****
+
+
+**** Parameterized Constructor ****
+
+**** Example 1: Defining Parameterized Constructor Inside the Class ****
+
+class student
+{
+    private:
+        string name;
+    public:
+        student(string name)
+        {
+            this->name = name;
+        }
+        void display()
+        {
+            cout << "Name = " << name << endl;
+        }
+};
+int main()
+{
+    student s("Mohan");
+    s.display();
+
+    return 0;
+}
+
+OUTPUT:
+Name = Mohan
+
+**** END ****
+
+**** Example 2: Defining Parameterized Constructor Outside the Class ****
+
+class student
+{
+    private:
+        string name;
+    public:
+        student(string name);
+        void display();
+};
+
+student:: student(string name)
+{
+    this->name = name;
+}
+void student::display()
+{
+    cout << "Name = " << name << endl;
+}
+int main()
+{
+    student s("Mohan");
+    s.display();
+
+    return 0;
+}
+
+OUTPUT:
+Name = Mohan
+
+**** END ****
+
+
+**** Example 3: Defining Parameterized Constructor with Default Values ****
+
+class student
+{
+    private:
+        string name;
+    public:
+        student(string name="Mohan")
+        {
+            this->name = name;
+        }
+        void display()
+        {
+            cout << "Name = " << name << endl;
+        }
+};
+int main()
+{
+    student s1("Gopal");
+    s1.display();
+    student s2;
+    s2.display();
+
+    return 0;
+}
+
+OUTPUT:
+Name = Gopal
+Name = Mohan
+
+**** END ****
+
+**** END ****
+
+
+**** COPY CONSTRUCTOR ****
+
+**** Example 1: Illustration of Implicit Copy Constructor ****
+
+class student
+{
+    private:
+        string name;
+    public:
+        student(string name="Mohan")
+        {
+            this->name = name;
+        }
+        void display()
+        {
+            cout << "Name = " << name << endl;
+        }
+};
+int main()
+{
+    student s1("Gopal");
+    s1.display();
+    student s2(s1);
+    s2.display();
+
+    return 0;
+}
+
+OUTPUT:
+Name = Gopal
+Name = Gopal
+
+**** END ****
+
+**** Example 2: Changing the value of variable after calling Copy Constructor ****
+
+class student
+{
+    private:
+        string name;
+    public:
+        student(string name="Mohan")
+        {
+            this->name = name;
+        }
+        void input(string name)
+        {
+            this->name = name;
+        }
+        void display()
+        {
+            cout << "Name = " << name << endl;
+        }
+};
+int main()
+{
+    student s1("Gopal");
+    cout << "S1 = ";
+    s1.display();
+    student s2(s1);
+    s1.input("Anand");
+    cout << "S1 = ";
+    s1.display();
+    cout << "S2 = ";
+    s2.display();
+
+    return 0;
+}
+
+OUTPUT:
+S1 = Name = Gopal
+S1 = Name = Anand
+S2 = Name = Gopal
+
+**** END ****
+
+**** END ****
+

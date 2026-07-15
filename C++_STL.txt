@@ -1,0 +1,601 @@
+**** STANDARD TEMPLATE LIBRARY ****
+
+- Container (list, map, vector, stack, queue)
+- Algorithm
+- Function Object
+- Iterators
+
+**** Function Template ****
+
+
+template <typename T>
+T add (T a, T b)
+{
+    return a + b;
+}
+template <typename T>
+T sub (T a, T b)
+{
+    return a - b;
+}
+template <typename T>
+T mul (T a, T b)
+{
+    return a * b;
+}
+template <typename T>
+T divide (T a, T b)
+{
+    return a / b;
+}
+
+int main()
+{
+    cout << "Add = "<< add(10,5)<< endl;
+    cout << "Sub = "<< sub(10,5)<< endl;
+    cout << "Mul = "<< mul(10,5)<< endl;
+    cout << "Div = "<< divide(10,5)<< endl;
+}
+
+OUTPUT:
+Add = 15
+Sub = 5
+Mul = 50
+Div = 2
+
+**** END ****
+
+**** Class Template ****
+
+template <typename T>
+class Calc
+{
+    public:
+    T add (T a, T b)
+    {
+        return a + b;
+    }
+    
+    T sub (T a, T b)
+    {
+        return a - b;
+    }
+    
+    T mul (T a, T b)
+    {
+        return a * b;
+    }
+    
+    T divide (T a, T b)
+    {
+        return a / b;
+    }
+};
+
+int main()
+{
+    Calc<int> intCalc;
+    
+    cout << "Add = "<< intCalc.add(10,5)<< endl;
+    cout << "Sub = "<< intCalc.sub(10,5)<< endl;
+    cout << "Mul = "<< intCalc.mul(10,5)<< endl;
+    cout << "Div = "<< intCalc.divide(10,5)<< endl;
+    
+    Calc<float> floatCalc;
+    
+    cout << "Add = "<< floatCalc.add(10.1,5.2)<< endl;
+    cout << "Sub = "<< floatCalc.sub(10.1,5.2)<< endl;
+    cout << "Mul = "<< floatCalc.mul(10.1,5.2)<< endl;
+    cout << "Div = "<< floatCalc.divide(10.1,5.2)<< endl;
+}
+
+OUTPUT:
+Add = 15
+Sub = 5
+Mul = 50
+Div = 2
+Add = 15.3
+Sub = 4.9
+Mul = 52.52
+Div = 1.94231
+
+**** END ****
+
+**** CONTAINER - LIST/ ITERATOR ****
+
+- push_back
+- push_front
+- insert
+- erase
+- begin
+- end
+
+**** LIST CREATION AND PRINT USING ITERATOR ****
+
+#include <iostream>
+#include <list>
+using namespace std;
+
+int main()
+{
+    list<int>myList;
+    
+    myList.push_back(10);
+    myList.push_back(20);
+    myList.push_front(30);
+    
+    for(list<int>::iterator it = myList.begin(); it!=myList.end(); it++)
+        cout<<*it<<endl;
+        
+    return 0;
+    
+}
+
+
+**** DELETING ELEMENT IN THE LIST ****
+
+int main()
+{
+    list<int>myList;
+    
+    myList.push_back(10);
+    myList.push_back(20);
+    myList.push_front(30);
+    myList.erase(myList.begin());
+    
+    for(list<int>::iterator it = myList.begin(); it!=myList.end(); it++)
+        cout<<*it<<endl;
+        
+    return 0;
+    
+}
+
+
+**** END ****
+
+**** MATCH MAKING EXAMPLE ****
+
+**** METHID-1 ****
+
+int main()
+{
+    list<int>allPlayers = {2,5,7,9,1,4,6,8,1,3};
+    list<int>beginners; 
+    list<int>pros;
+
+    for(list<int>::iterator it = allPlayers.begin(); it!=allPlayers.end(); it++)
+    {
+        if ((*it >= 1) && (*it <=5))
+            beginners.push_back(*it);
+        else if ((*it >=6) && (*it <=10))
+            pros.push_back(*it);
+            
+    }
+    cout << "Beginners:"<<endl;
+    for(list<int>::iterator it = beginners.begin(); it!=beginners.end(); it++)
+        cout <<*it << endl;
+    
+    cout << "Pros:"<<endl;
+    for(list<int>::iterator it = pros.begin(); it!=pros.end(); it++)
+        cout <<*it << endl;       
+    return 0;
+    
+}
+
+OUTPUT:
+Beginners:
+2
+5
+1
+4
+1
+3
+Pros:
+7
+9
+6
+8
+
+**** METHOD-2 ****
+
+void displayRating(const list<int>& rating)
+{
+    for(list<int>::const_iterator it = rating.begin(); it!=rating.end(); it++)
+        cout << *it << endl;
+}
+int main()
+{
+    list<int>allPlayers = {2,5,7,9,1,4,6,8,1,3};
+    list<int>beginners; 
+    list<int>pros;
+
+    for(list<int>::iterator it = allPlayers.begin(); it!=allPlayers.end(); it++)
+    {
+        if ((*it >= 1) && (*it <=5))
+            beginners.push_back(*it);
+        else if ((*it >=6) && (*it <=10))
+            pros.push_back(*it);
+            
+    }
+    cout <<"Beginners :";
+    displayRating(beginners);
+    cout <<"Pros :";
+    displayRating(pros);  
+    
+    return 0;
+    
+}
+
+OUTPUT:
+Beginners :2
+5
+1
+4
+1
+3
+Pros :7
+9
+6
+8
+
+**** END ****
+
+
+**** SORTING ELEMENTS IN A LIST ****
+
+#include <iostream>
+#include <list>
+using namespace std;
+
+void displayRating(const list<int>& rating)
+{
+    for(list<int>::const_iterator it = rating.begin(); it!=rating.end(); it++)
+        cout << *it << endl;
+}
+
+void sortList(int newRating, list<int>& listName)
+{
+    for (list<int>::iterator it = listName.begin(); it!=listName.end(); it++)
+    {
+        if (*it >newRating)
+        {
+            listName.insert(it, newRating);
+            return;
+        }
+    }
+    listName.push_back(newRating);
+    
+}
+int main()
+{
+    list<int>allPlayers = {2,5,7,9,1,4,6,8,1,3};
+    list<int>beginners; 
+    list<int>pros;
+
+    for(list<int>::iterator it = allPlayers.begin(); it!=allPlayers.end(); it++)
+    {
+        if ((*it >= 1) && (*it <=5))
+            sortList(*it, beginners);
+        else if ((*it >=6) && (*it <=10))
+            sortList(*it, pros);
+            
+    }
+    cout <<"Beginners :";
+    displayRating(beginners);
+    cout <<"Pros :";
+    displayRating(pros);  
+    
+    return 0;
+    
+}
+
+OUTPUT:
+Beginners :1
+1
+2
+3
+4
+5
+Pros :6
+7
+8
+9
+
+**** END ****
+
+
+**** CONTAINER - VECTOR ****
+
+**** Creating, Storing and displaying elements in vector ****
+
+METHOD-1
+========
+int main()
+{
+    vector<int> numbers;
+    numbers.push_back(0);
+    
+    for (int i=1; i<10; i++)
+        numbers.push_back(i);
+
+    for (int number : numbers)
+        cout <<number <<endl;
+        
+    return 0;
+    
+}
+
+OUTPUT:
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+
+METHOD-2
+========
+int main()
+{
+    vector<int> numbers;
+    numbers.push_back(0);
+    
+    for (int i=1; i<10; i++)
+        numbers.push_back(i);
+
+    for (auto it=numbers.begin(); it != numbers.end(); it++)
+    {
+         cout << *it <<endl;
+         cout << &it <<endl;
+         cout << &(*it) <<endl;
+    }   
+    return 0;
+    
+}
+
+OUTPUT:
+0
+0x7fff4f2f6a20
+0x605dd6ff7990
+1
+0x7fff4f2f6a20
+0x605dd6ff7994
+2
+0x7fff4f2f6a20
+0x605dd6ff7998
+3
+0x7fff4f2f6a20
+0x605dd6ff799c
+4
+0x7fff4f2f6a20
+0x605dd6ff79a0
+5
+0x7fff4f2f6a20
+0x605dd6ff79a4
+6
+0x7fff4f2f6a20
+0x605dd6ff79a8
+7
+0x7fff4f2f6a20
+0x605dd6ff79ac
+8
+0x7fff4f2f6a20
+0x605dd6ff79b0
+9
+0x7fff4f2f6a20
+0x605dd6ff79b4
+
+
+**** CBEGIN, CEND ****
+
+int main()
+{
+    vector<int> numbers;
+    numbers.push_back(0);
+    
+    for (int i=1; i<10; i++)
+        numbers.push_back(i);
+
+    for (auto it=numbers.cbegin(); it != numbers.cend(); it++)
+    {
+        *it = 20;  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Will get error here as cbegin and cend are constants. So value of '*it' cannot be modified.
+        cout <<*it <<endl;
+    }
+        
+    return 0;
+    
+}
+
+
+**** FUNCTIONS AVAILABLE IN VECTOR ****
+
+int main()
+{
+    vector<int> numbers;
+    numbers.push_back(0);
+    
+    for (int i=1; i<10; i++)
+        numbers.push_back(i);
+
+    for (auto it=numbers.cbegin(); it != numbers.cend(); it++)
+    {
+        cout <<*it <<endl;
+    }
+        
+    /* Size of the vector */    
+    cout << "Size : " << numbers.size() << endl;
+
+    /* The maximum possible number of elements the vector could theoretically hold. */   
+    cout << "Max Size : " << numbers.max_size() << endl;
+
+    /* Number of elements the vector can hold before needing to reallocate memory. */
+    cout << "Capacity : " << numbers.capacity() << endl;
+
+    /* Re-size of the vector */   
+    numbers.resize(5);
+    cout << "Size : " << numbers.size() << endl;
+    for (auto it=numbers.cbegin(); it != numbers.cend(); it++)
+    {
+        cout <<*it <<endl;
+    }
+    
+    /* Check whether vector is empty or not */   
+    if (numbers.empty())
+        cout << "Vertor is empty" << endl;
+    else
+        cout << "Vertor is not empty" << endl;
+        
+    /* Fetch element in a vector at given position */
+    cout << "Element[2] : " << numbers[2] << endl;
+    cout << "Element at (2) : " << numbers.at(2) << endl;
+
+    /* To get the element which is present at front of the vector */	
+    cout << "Numbers Front : " << numbers.front() << endl;
+    
+    /* To get the element which is present at back of the vector */
+    cout << "Numbers Back : " << numbers.back() << endl;
+
+    /* To clear the complete vector */
+    numbers.clear();
+    cout << "Size : " << numbers.size() << endl;
+
+    return 0;
+    
+}
+
+OUTPUT:
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+Size : 10
+Max Size : 2305843009213693951
+Capacity : 16
+Size : 5
+0
+1
+2
+3
+4
+Vertor is not empty
+Element[2] : 2
+Element at (2) : 2
+Numbers Front : 0
+Numbers Back : 4
+Size : 0
+
+
+**** INSERTION AND DELETION OF ELEMENTS TO THE VECTOR ****
+
+int main()
+{
+    vector<int> numbers;
+    numbers.push_back(0);
+    
+    for (int i=1; i<10; i++)
+        numbers.push_back(i);
+
+    for (auto it=numbers.cbegin(); it != numbers.cend(); it++)
+    {
+        cout <<*it <<endl;
+    }
+        
+        
+    cout << "Size : " << numbers.size() << endl;
+    
+    
+    /* Inserting element to the vector at the given postion */
+    numbers.insert(numbers.begin()+5, 80);
+    
+    for (auto it=numbers.cbegin(); it != numbers.cend(); it++)
+    {
+        cout <<*it <<endl;
+    }
+
+    cout << "Size : " << numbers.size() << endl;
+
+    
+    /* Removing element in the vector at the given position */
+    numbers.erase(numbers.begin()+5);
+    for (auto it=numbers.cbegin(); it != numbers.cend(); it++)
+    {
+        cout <<*it <<endl;
+    }
+        
+    cout << "Size : " << numbers.size() << endl;
+    
+
+    /* Removing element in the vector at the back */
+    cout << "Removing element in the vector at the back" << endl;
+    numbers.pop_back();
+    for (auto it=numbers.cbegin(); it != numbers.cend(); it++)
+    {
+        cout <<*it <<endl;
+    }
+        
+    cout << "Size : " << numbers.size() << endl;
+    
+    return 0;
+}
+
+
+OUTPUT:
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+Size : 10
+Inserting element to the vector at the given position
+0
+1
+2
+3
+4
+80
+5
+6
+7
+8
+9
+Size : 11
+Removing element in the vector at the given position
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+Size : 10
+Removing element in the vector at the back
+0
+1
+2
+3
+4
+5
+6
+7
+8
+Size : 9
+
+**** END ****

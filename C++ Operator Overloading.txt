@@ -1,0 +1,326 @@
+Operations that can be performed:
+Arithmetic operations: + – * / %
+Logical operations:  && and ||
+Relational operations: == != >= <=
+Pointer operators: & and *
+Memory management operator: new, delete []
+
+
+
+moh.div.301017@gmail.com
+MohDiv301017
+
+
+**** OPERATOR << ****
+
+METHOD-1
+========
+#include <iostream>
+using namespace std;
+
+class overloading
+{
+    public:
+        string Opr_symbol;
+        string Opr_name;
+    overloading(string opr_symbol, string opr_name)
+    {
+        Opr_symbol = opr_symbol;
+        Opr_name = opr_name;
+    }
+    friend ostream& operator<<(ostream& COUT, overloading& over_ld)
+//    void operator<<(ostream& COUT, overloading& over_ld)
+    {
+        COUT << "Operrator Symbol : " <<over_ld.Opr_symbol << endl;
+        COUT << "Operrator Name : " <<over_ld.Opr_name << endl;
+        
+        return COUT;
+    }
+};
+
+int main()
+{
+    overloading over_load("<<", "Left Shift");
+    cout << over_load;
+ //   cout << "Operrator Symbol : " <<over_load.opr_symbol << endl;
+ //   cout << "Operrator Name : " <<over_load.opr_name << endl;
+    return 0;
+}
+
+
+METHOD-2
+========
+struct overloading
+{
+    string Opr_symbol;
+    string Opr_name;
+    
+    overloading(string opr_symbol, string opr_name)
+    {
+        Opr_symbol = opr_symbol;
+        Opr_name = opr_name;
+    }
+};
+
+void operator<<(ostream& COUT, overloading& over_ld)
+{
+    COUT << "Operrator Symbol : " <<over_ld.Opr_symbol << endl;
+    COUT << "Operrator Name : " <<over_ld.Opr_name << endl;
+}
+
+int main()
+{
+    //overloading over_load = overloading("<<", "Left Shift");
+    overloading over_load("<<", "Left Shift");
+    cout << over_load;
+ //   cout << "Operrator Symbol : " <<over_load.opr_symbol << endl;
+ //   cout << "Operrator Name : " <<over_load.opr_name << endl;
+    return 0;
+}
+
+**** END ****
+
+
+**** ARITHMETIC OPERATOR +, -, *, /, % ****
+
+
+#include <iostream>
+using namespace std;
+
+class Number
+{
+  private:
+    int val1;
+    
+    public:
+        Number(int val)
+        {
+            val1 = val;
+        }
+        
+        Number operator+ (Number& num)
+        {
+            return Number(val1 + num.val1);
+        }
+        Number operator- (Number& num)
+        {
+            return Number(val1 - num.val1);
+        }
+        Number operator* (Number& num)
+        {
+            return Number(val1 * num.val1);
+        }
+        Number operator/ (Number& num)
+        {
+            return Number(val1 / num.val1);
+        }
+        Number operator% (Number& num)
+        {
+            return Number(val1 % num.val1);
+        }
+        
+        friend ostream& operator<<(ostream& COUT, Number& over_ld)
+        {
+            COUT << over_ld.val1 << endl;
+            return COUT;
+        }
+};
+
+
+int main()
+{
+    Number N1(5);
+    Number N2(10);
+    
+    Number N3 = N1 + N2;
+    cout << "Sum = " <<N3;
+    
+    N3 = N1 - N2;
+    cout << "Diff = " <<N3;
+    
+    N3 = N1 * N2;
+    cout << "Mul = " <<N3;
+    
+    N3 = N1 / N2;
+    cout << "Div = " <<N3;
+    
+    N3 = N1 % N2;
+    cout << "Mod = " <<N3;
+    
+    return 0;
+}
+
+OUTPUT:
+======
+Sum = 15
+Diff = -5
+Mul = 50
+Div = 0
+Mod = 5
+
+**** END ****
+
+**** INCREMENT/ DECREMENT OPERATOR ++, -- ****
+
+class Number
+{
+  private:
+    int val1;
+    
+    public:
+        Number(int val)
+        {
+            val1 = val;
+        }
+        
+        Number operator++ ()
+        {
+            return Number(++val1);
+        }
+        Number operator-- ()
+        {
+            return Number(--val1);
+        }
+        
+        
+        friend ostream& operator<<(ostream& COUT, const Number& over_ld)
+        {
+            COUT << over_ld.val1 << endl;
+            return COUT;
+        }
+};
+
+
+int main()
+{
+    Number N1(5);
+    Number N2(10);
+    
+    cout << "Increment = " <<++N1;
+    
+    cout << "Decrement = " <<--N2;
+    
+     return 0;
+}
+
+
+OUTPUT:
+=======
+Increment = 6
+Decrement = 9
+
+**** END ****
+
+
+**** LOGICAL OPERATOR &&, || ****
+
+#include <iostream>
+using namespace std;
+
+class Number
+{
+  private:
+    int val1;
+    
+    public:
+        Number(int val)
+        {
+            val1 = val;
+        }
+        
+        Number operator&& (Number& num)
+        {
+            return Number(val1 && num.val1);
+        }
+        Number operator|| (Number& num)
+        {
+            return Number(val1 || num.val1);
+        }
+        
+        
+        friend ostream& operator<<(ostream& COUT, const Number& over_ld)
+        {
+            COUT << over_ld.val1 << endl;
+            return COUT;
+        }
+};
+
+
+int main()
+{
+    Number N1(5);
+    Number N2(0);
+    
+    Number N3 = N1 && N2;
+    cout << "&& = " <<N3;
+    
+    Number N4 = N1 || N2;
+    cout << "|| = " <<N4;
+    
+     return 0;
+}
+
+
+**** END ****
+
+**** RELATIONAL OPERATOR ==, !=, >=, <= ****
+
+class Number
+{
+  private:
+    int val1;
+    
+    public:
+        Number(int val)
+        {
+            val1 = val;
+        }
+        
+        Number operator== (Number& num)
+        {
+            return Number(val1 == num.val1);
+        }
+        Number operator!= (Number& num)
+        {
+            return Number(val1 != num.val1);
+        }
+        Number operator>= (Number& num)
+        {
+            return Number(val1 >= num.val1);
+        }
+        Number operator<= (Number& num)
+        {
+            return Number(val1 <= num.val1);
+        }
+        
+        
+        friend ostream& operator<<(ostream& COUT, const Number& over_ld)
+        {
+            COUT << over_ld.val1 << endl;
+            return COUT;
+        }
+};
+
+
+int main()
+{
+    Number N1(6);
+    Number N2(5);
+    
+    Number N3 = (N1 == N2);
+    cout << "== = " <<N3;
+    
+    Number N4 = (N1 != N2);
+    cout << "!= = " <<N4;
+ 
+    Number N5 = (N1 >= N2);
+    cout << ">= = " <<N5;
+    
+    Number N6 = (N1 <= N2);
+    cout << "<= = " <<N6;
+    
+     return 0;
+}
+
+
+**** END ****
